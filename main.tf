@@ -1,3 +1,12 @@
+# --------------------------------------------------------------------------------------------------
+# NOTE: This a demo deployment and should be used for learning and experimentation only.
+# For more information see https://lachlanwright.com/post/2021/ampls_with_terraform/
+# --------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------------------
+# Terraform
+# --------------------------------------------------------------------------------------------------
+
 terraform {
   required_version = ">= 1.0.0"
 }
@@ -6,8 +15,22 @@ provider "azurerm" {
   features {}
 }
 
+# --------------------------------------------------------------------------------------------------
+# Variables
+# --------------------------------------------------------------------------------------------------
+
+variable location {
+  type        = string
+  default     = "australiaeast"
+  description = "The Azure region you'd like to deploy to. Defaults to Australia East."
+}
+
+# --------------------------------------------------------------------------------------------------
+# Resource Groups
+# --------------------------------------------------------------------------------------------------
+
 resource "azurerm_resource_group" "this" {
-  name     = "ampls-rg"
+  name     = "ampls-demo-rg"
   location = "australiaeast"
 }
 
@@ -359,7 +382,7 @@ resource "azurerm_windows_virtual_machine" "demovm" {
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2016-Datacenter"
+    sku       = "2019-Datacenter"
     version   = "latest"
   }
 }
